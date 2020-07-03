@@ -74,7 +74,7 @@
                 let judgement = "不正解 正解は"+correct+"です";
                 let alertbox = "alert-danger";
                 //判定
-                if(answer == correct){
+                if(answer.toUpperCase() == correct){
                     judgement = "正解";
                     alertbox = "alert-primary";
                 }
