@@ -11,7 +11,7 @@
         <a class="navbar-brand" href="#!">jQueryの復習</a>
     </nav>
 
-    <div class="alert alert-primary" id="message">
+    <div class="alert alert-dark" id="message">
         <p>jQueryはJavaScriptのライブラリです。</p>
         <button class="btn btn-info" id="click1">Click1</button>
         <button class="btn btn-danger" id="click2">Click2</button>
@@ -21,10 +21,12 @@
         //ボタンクリックで文字色変化
         $('#click1').click(function(){
             $('#message p').css('color', '#ffffff');
+			$('#message p').css('font-size', 'x-large');
         });
         //ボタンクリックで文字色を戻す
         $('#click2').click(function(){
             $('#message p').css('color', '');
+			$('#message p').css('font-size', '');
         });
     </script>
 </body>

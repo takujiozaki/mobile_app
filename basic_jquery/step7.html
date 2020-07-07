@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQueryの復習</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#!">jQueryの復習</a>
+    </nav>
+
+    <div class="alert alert-info" id="message">
+        <p>jQueryはJavaScriptのライブラリです。</p>
+        <button class="btn btn-info" id="sw1">Click1</button>
+    </div>
+	<img src="a.png" alt="" width="100">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script>
+		$("#sw1").click(function(){
+			let img = $('img').attr('src');
+			if(img == "a.png"){
+			   img = "b.png";
+			} else {
+				img = "a.png";
+			}
+			$('img').attr('src',img);
+			width = $('img').attr('width');
+			$('img').attr('width', parseInt(width) + 10);
+			
+		});
+		
+//		score = 59;
+//		if(score >= 60){
+//			console.log("合格");
+//		}else{
+//			console.log("不合格");
+//		}
+		
+		
+		
+		
+	</script>
+</body>
+</html>
