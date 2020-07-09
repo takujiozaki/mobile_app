@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <title>電卓アプリ</title>
+  </head>
+  <body>
+	  <div class="container bg-secondary p-3">
+	  	<div class="show">
+			<div class="alert alert-primary text-right" id="screen">0</div>
+		</div>
+		<div class="control">
+		  <div class="row mb-3">
+		  	<div class="col"><button class="btn btn-primary btn-block" id="c">c</button></div>
+		  	<div class="col"><button class="btn btn-primary btn-block">+/-</button></div>
+		  	<div class="col"><button class="btn btn-primary btn-block">%</button></div>
+		  	<div class="col"><button class="btn btn-primary btn-block">/</button></div>
+		  </div>
+		<div class="row mb-3">
+		  	<div class="col-3"><button class="btn btn-primary btn-block">7</button></div>
+		  	<div class="col-3"><button class="btn btn-primary btn-block">8</button></div>
+		  	<div class="col-3"><button class="btn btn-primary btn-block">9</button></div>
+		  	<div class="col-3"><button class="btn btn-primary btn-block">*</button></div>
+		  </div>
+		<div class="row mb-3">
+		  	<div class="col"><button class="btn btn-primary btn-block">4</button></div>
+		  	<div class="col"><button class="btn btn-primary btn-block">5</button></div>
+		  	<div class="col"><button class="btn btn-primary btn-block">6</button></div>
+		  	<div class="col"><button class="btn btn-primary btn-block">-</button></div>
+		  </div>
+		<div class="row mb-3">
+		  	<div class="col"><button class="btn btn-primary btn-block">1</button></div>
+		  	<div class="col"><button class="btn btn-primary btn-block">2</button></div>
+		  	<div class="col"><button class="btn btn-primary btn-block">3</button></div>
+		  	<div class="col"><button class="btn btn-primary btn-block">+</button></div>
+		  </div>
+		<div class="row mb-3">
+		  	<div class="col-6"><button class="btn btn-primary btn-block">0</button></div>
+		  	<div class="col-3"><button class="btn btn-primary btn-block">.</button></div>
+		  	<div class="col-3"><button class="btn btn-primary btn-block">=</button></div>
+		  </div>
+		</div>
+	  </div>
+    
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+	<script>
+	
+	  $('button').click(function(){
+		  const target = $(this).text();//クリックされたボタンの値
+		  const screen = $("#screen");
+		  const current = screen.text()//現在の表示されている値
+		  if(target == "c"){
+			  screen.text(0);
+		  }else if(target == "="){
+			  screen.text(eval(current));
+			  console.log(eval(current));
+		  }else if(target == "."){
+					   
+		  }else if(target == "+/-"){
+			  
+		  }else if(target == "%"){
+			  
+		  }else{
+			  if(current == 0){
+				  screen.text(target);
+			  }else{
+				  screen.text(current + target);
+			  }
+		  }
+	  });
+	</script>
+  </body>
+</html>
