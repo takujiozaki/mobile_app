@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <title>TODOList</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="h4">ブラウザに保存出来るTODOList</h1>
+      <!--入力欄-->
+      <form>
+        <div class="form-row">
+          <div class="col-2">
+            <input type="date" class="form-control" placeholder="日程" id="addDate">
+          </div>
+          <div class="col-2">
+            <input type="time" class="form-control" placeholder="時間" id="addTime">
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" placeholder="何をする？" id="addDetail">
+          </div>
+          <div class="col-1">
+            <button class="btn btn-primary" id="addTodo">保存</button>
+          </div>
+        </div>
+      </form>
+      <!--表示エリア-->
+      <table class="table table-striped" id="todosTable">
+        <tr>
+          <th>日程</th>
+          <th>時間</th>
+          <th>内容</th>
+        </tr>
+      </table>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script>
+      //ste1 既存のリストを表示
+      $(document).ready(function(){
+        //ブラウザのストレージからデータを取得
+        let todos = "";
+        //console.log(localStorage.getItem('todos'));
+        if(localStorage.getItem('todos')!=null){//localstrageにデータがあれば取得
+          todos = localStorage.getItem('todos');
+          todos = JSON.parse(todos);
+        }else{//なければ配列を新規作成
+          todos = [];
+        }
+        //一覧を作成
+        const todosTable =  $('#todosTable');
+        todos.forEach(function(todo){
+          makeTable(todo,todosTable)
+        });
+
+        //button click
+        $('#addTodo').click(function(){
+          //check
+          //console.log("追加");
+          //formの内容を取得
+          const addDate = $('#addDate');
+          const addTime = $('#addTime');
+          const addDetail = $('#addDetail');
+          if(addDetail.val() != ""){
+            
+            const addTodos = {date:addDate.val(), time:addTime.val(), detail: addDetail.val()};
+            //配列に追加
+            todos.push(addTodos);
+            console.log(addTodos);
+            //表に追加
+            makeTable(addTodos,todosTable);
+
+            //ローカルストレージに保存
+            localStorage.setItem('todos', JSON.stringify(todos));
+
+            //formを空欄に(連続投稿を防ぐ)
+            addDate.val('');
+            addTime.val('');
+            addDetail.val('');
+            //画面遷移を止める
+
+          }
+          return false;
+        });
+      });
+
+      function makeTable(todo,jselecter){
+        jselecter.append(
+              `<tr><td>${todo.date}</td><td>${todo.time}</td><td>${todo.detail}</td>`
+        );
+      }
+      
+    </script>
+  </body>
+</html>
