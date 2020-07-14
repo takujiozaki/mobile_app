@@ -4,12 +4,15 @@
 ## Basic jQuery(2020-07-07)
 jQueryの復習
 
+## 関数の復習(2020-07-16)
+レイアウト(/func/base.html)  
+
 ## bootstap(2020-07-09)
 CSSフレームワーク Bootstrapのコンポーネントについて(calculator/layout.html)  
 電卓アプリ基礎編(calculator/index.html)  
 電卓アプリ完成編(calculator/index2.html)  
 
-## ブラウザに保存するTODOLIST
+## ブラウザに保存するTODOLIST(2020-07-14)
 レイアウト(/todolist/base.html)  
 BootstrapによるCSS設定(/todolist/layout.html)   
 表示機能のJavaScript(/todolist/step1.html)  
