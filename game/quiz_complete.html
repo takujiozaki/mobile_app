@@ -40,6 +40,8 @@
           const alphabets = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
           //正解
           let target;
+          //時間測定
+          let answerTime = {};
 
           function makeQuestion(){
             const random = Math.floor((Math.random() * alphabets.length));
@@ -72,6 +74,9 @@
               }
               $('#quizDiv').append(`<div class="col-1 border m-1 text-center">${q}</div>`);
             });
+
+            //出題時刻を記録
+            answerTime.start = performance.now();
           }
           
           //出題する
@@ -82,8 +87,12 @@
           $('#answerbtn').click(function(){
             const answer = $('#answer').val();
             if(target == answer.toUpperCase()){
+              //回答時間を記録
+              answerTime.end = performance.now();
+
               //正解
-              alert("正解");
+              alert("正解 回答時間は約"+ Math.round((answerTime.end - answerTime.start)/1000) + "秒でした");
+
             }else{
               //不正解
               alert("不正解 正解は"+target+"でした");
