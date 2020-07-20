@@ -14,7 +14,7 @@
     <div class="container">
       <div class="alert alert-info">
           <h1 class="h4">足りない文字はどれ？</h1>
-          <button class="btn btn-info" id="makeQuestion">出題</button></div>
+          <button class="btn btn-info" id="makeQuestion">出題</button><span id='timediff' class="px-3"></span></div>
       <div class="row" id="quizDiv">
       </div>
       <div class="form-row">
@@ -77,6 +77,7 @@
 
             //出題時刻を記録
             answerTime.start = performance.now();
+            timer = setInterval(getTimeDiff,1000);
           }
           
           //出題する
@@ -89,7 +90,7 @@
             if(target == answer.toUpperCase()){
               //回答時間を記録
               answerTime.end = performance.now();
-
+              clearInterval(timer);
               //正解
               alert("正解 回答時間は約"+ Math.round((answerTime.end - answerTime.start)/1000) + "秒でした");
 
@@ -100,6 +101,11 @@
             //回答欄をクリア
             $('#answer').val('');
           });
+
+          //時間測定
+          function getTimeDiff(){
+            $('#timediff').text("経過時間"+Math.round(performance.now() - answerTime.start)/1000+"秒") 
+          }
       });
     </script>
   </body>
