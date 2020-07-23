@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.jsの練習</title>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="myscore in scores">
+                {{myscore.subject}}/{{myscore.score}}
+            </li>
+        </ul>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                scores:[
+                    {subject:'数学', score:80},
+                    {subject:'英語', score:70},
+                    {subject:'国語', score:60},
+                    {subject:'社会', score:63},
+                    {subject:'理科', score:77},
+                ]
+            },
+            methods:{
+                
+            }
+        })
+    </script>
+</body>
+</html>

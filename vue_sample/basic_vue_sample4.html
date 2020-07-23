@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.jsの練習</title>
+</head>
+<body>
+    <div id="app">
+        <p><a v-bind:href="url">{{school}}</a></p>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                school:'創造社デザイン専門学校',
+                url:'https://sozosha.ac.jp/'
+            },
+            methods:{
+            }
+        })
+    </script>
+</body>
+</html>

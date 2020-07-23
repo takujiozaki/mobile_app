@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.jsの練習</title>
+</head>
+<body>
+    <div id="app">
+        <p v-if="isDisplay">{{message}}</p>
+        <p v-else>非表示</p>
+        <button v-on:click="showToggle">変更</button>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                message:"Vue.js",
+                isDisplay:false,
+            },
+            methods:{
+                showToggle:function(){
+                    if(this.isDisplay){
+                        this.isDisplay = false
+                    }else{
+                        this.isDisplay = true
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
