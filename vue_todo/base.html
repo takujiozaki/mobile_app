@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!--入力エリア-->
+        日付：<input type="date" name="when" v-model="newWhen"><br>
+        内容：<input type="something" name="when" v-model="newSomething"><br>
+        カテゴリー：<select name="category" v-model="newCategory">
+            <option v-for="category in categories" v-bind:value="category"></option>
+        </select>{{newCategory}}<br>
+        <button type="button" v-on:click="create">追加</button>
+        <!--表示エリア-->
+        <table>
+            <tr>
+                <th>#</th>
+                <th>日時</th>
+                <th>内容</th>
+                <th>完了</th>
+            </tr>
+            <tr v-for="todo in todos">
+                <td>{{todo.id}}</td>
+                <td>{{todo.when}}</td>
+                <td>{{todo.something}}</td>
+                <td><button type="button" v-on:click="complete(todo.id)">完了</button></td>
+            </tr>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                categories:['学校','プライベート','就活'],
+                todos:[
+                    {id:1, when:'2020-07-30',something:'課題発表',category:'学校',done:false},
+                    {id:2, when:'2020-08-06',something:'課題提出',category:'学校',done:false},
+                    {id:3, when:'2020-08-13',something:'買い物',category:'プライベート',done:false},
+                ],
+                newWhen:'',
+                newSomething:'',
+                newCategory:'',
+            },
+            methods:{
+                create:function(){
+                    if(this.newWhen != "" && this.newSomething != ""){
+                        //番号を取得
+                        lastTodo = this.todos.slice(-1)[0]
+                        newId = lastTodo.id + 1
+                        newTodo = {
+                            id: newId,
+                            when: this.newWhen,
+                            something: this.newSomething,
+                            category: this.newCategory,
+                        }
+                        this.todos.push(newTodo)
+                        this.newWhen = ''
+                        this.newSomething = ''
+                        this.newCategory = ''
+                        //localstrageも更新
+                        localStorage.setItem('todos', JSON.stringify(this.todos))
+                    }
+                },
+                complete:function(id){
+                    const newTodos = this.todos.filter(function(todo) {
+                        return todo.id !== id;
+                    })
+                    this.todos = newTodos
+                    //localstrageも更新
+                    localStorage.setItem('todos', JSON.stringify(this.todos))
+                }
+            },
+            mounted(){
+                if(localStorage.getItem('todos')!=null){//localstrageにデータがあれば取得
+                    const todos = localStorage.getItem('todos');
+                    this.todos = JSON.parse(todos);
+                }else{//なければ配列を新規作成
+                    this.todos = [];
+                }
+            }
+        })
+    </script>
+</body>
+</html>

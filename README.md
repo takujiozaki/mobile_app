@@ -24,3 +24,7 @@ BootstrapによるCSS設定(/todolist/layout.html)
 アルファベット探しゲーム(機能のみ、意匠は調整中)  
 java script・jQueryの復習
 
+## 制作課題
+各自テーマを持って基本アプリ(/vue_todo/base.html)を装飾  
+* ファイルとして開かず、ローカルサーバー経由で動作させる事  
+必須:カテゴリー要素を表現すること  
