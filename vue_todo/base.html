@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>タイトル</title>
+    <title>TODOリスト課題</title>
 </head>
 <body>
     <div id="app">
@@ -35,34 +35,33 @@
         new Vue({
             el:'#app',
             data:{
-                categories:['学校','プライベート','就活'],
-                todos:[
-//                    {id:1, when:'2020-07-30',something:'課題発表',category:'学校',done:false},
-//                    {id:2, when:'2020-08-06',something:'課題提出',category:'学校',done:false},
-//                    {id:3, when:'2020-08-13',something:'買い物',category:'プライベート',done:false},
-                ],
+                categories:['学校','プライベート','就活','グルメ'],
+                todos:[],
                 newWhen:'',
                 newSomething:'',
                 newCategory:'',
             },
             methods:{
                 create:function(){
+					//日付と内容が空欄でない場合のみ
                     if(this.newWhen != "" && this.newSomething != ""){
                         //番号を取得
-						if(this.todos.length != 0){
+						if(this.todos.length != 0){//既にデータがある場合
 							lastTodo = this.todos.slice(-1)[0] //一番最後のデータを取得
                         	newId = lastTodo.id + 1
-						}else{
+						}else{//新規
 							newId = 1
 						}
-                        
+                        //登録用データを作成
                         newTodo = {
                             id: newId,
                             when: this.newWhen,
                             something: this.newSomething,
                             category: this.newCategory,
                         }
+						//配列にデータ追加
                         this.todos.push(newTodo)
+						//FORMをクリア
                         this.newWhen = ''
                         this.newSomething = ''
                         this.newCategory = ''
@@ -71,6 +70,7 @@
                     }
                 },
                 complete:function(id){
+					//idで指定された配列要素を削除
                     const newTodos = this.todos.filter(function(todo) {
                         return todo.id !== id;
                     })
@@ -80,6 +80,7 @@
                 }
             },
             mounted(){
+				//読み込み時に配列をローカルストレージから復元
                 if(localStorage.getItem('todos')!=null){//localstrageにデータがあれば取得
                     const todos = localStorage.getItem('todos');
                     this.todos = JSON.parse(todos);
