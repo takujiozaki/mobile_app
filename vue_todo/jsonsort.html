@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jsonをソートする</title>
+</head>
+<body>
+    <div id="app">
+        <h1>JSONをソートする</h1>
+        {{todos}}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                todos:[
+                    {
+                        id: 1,
+                            when: '2020-07-31',
+                            something: 'TEST1',
+                            category: 'SCHOOL',
+                    },
+                    {
+                        id: 2,
+                            when: '2020-08-01',
+                            something: 'TEST2',
+                            category: 'SCHOOL',
+                    },
+                    {
+                        id: 3,
+                            when: '2020-07-15',
+                            something: 'TEST3',
+                            category: 'SCHOOL',
+                    },
+
+                ],
+            },
+            mounted:function(){
+                this.sortedByDate()
+            },
+            methods:{
+                sortedByDate:function(){
+                    console.log('start')
+                    this.todos.sort(function(a, b){
+                    var val1 = a.when;
+                    var val2 = b.when;
+                    if( val1 < val2 ) {
+                        return 1;
+                        } else {
+                            return -1;
+                        }
+                    })
+                }
+            },
+        })
+    </script>
+</body>
+</html>
