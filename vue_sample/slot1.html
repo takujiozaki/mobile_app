@@ -39,28 +39,35 @@
         const slot = new Vue({
             el:'.container',
             data:{
+                //SLOTで表示する内容
                 slot1:0,
                 slot2:0,
                 slot3:0,
+                //各最大値
                 max:10,
+                //各タイマーID
                 slot_timer1:null,
                 slot_timer2:null,
                 slot_timer3:null,
+                //スタートボタンのdisabled値
                 start_disabled:false,
+                //各ストップボタンのdisabled値
                 stop_disabled1:true,
                 stop_disabled2:true,
                 stop_disabled3:true,
             },
             created:function(){
+                //初期化実行
                 this.init_slot()
             },
             methods:{
+                //各スロットを初期化
                 init_slot:function(){
                     this.slot1 =  this.setRandom()
                     this.slot2 =  this.setRandom()
                     this.slot3 =  this.setRandom()
                 },
-                //ランダムをセットする
+                //ランダム値をセットする
                 setRandom:function(){
                     return Math.floor(Math.random() * this.max)
                 },
