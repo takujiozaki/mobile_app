@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>簡易スロットマシン</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1>簡易SLOT</h1>
+        <div class="text-center mb-3">
+            <button class="btn btn-lg btn-info" v-on:click="start_slot" v-bind:disabled="start_disabled">START</button>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="text-center">
+                <div class="border border-primary p-3 mb-2 display-4">
+                    {{slot1}}
+                </div>
+                <button class="btn btn-primary" v-on:click="stop_slot(1)" v-bind:disabled="stop1_disabled">STOP</button>
+            </div>
+            <div class="text-center">
+                <div class="border border-primary p-3 mb-2 display-4">
+                    {{slot2}}
+                </div>
+                <button class="btn btn-primary" v-on:click="stop_slot(2)" v-bind:disabled="stop2_disabled">STOP</button>
+            </div>
+            <div class="text-center">
+                <div class="border border-primary p-3 mb-2 display-4">
+                    {{slot3}}
+                </div>
+                <button class="btn btn-primary" v-on:click="stop_slot(3)" v-bind:disabled="stop3_disabled">STOP</button>
+            </div>
+        </div>
+        <div class="border border-warning mt-3">
+            OUT
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        const slot = new Vue({
+            el:'.container',
+            data:{
+                slot1:0,
+                slot2:0,
+                slot3:0,
+                max:10,
+                slot_timer1:null,
+                slot_timer2:null,
+                slot_timer3:null,
+                start_disabled:false,
+                stop1_disabled:true,
+                stop2_disabled:true,
+                stop3_disabled:true,
+
+            },
+            created:function(){
+                this.init_slot()
+            },
+            methods:{
+                init_slot:function(){
+                    this.slot1 =  Math.floor(Math.random() * this.max)
+                    this.slot2 =  Math.floor(Math.random() * this.max)
+                    this.slot3 =  Math.floor(Math.random() * this.max)
+                },
+                rotation_slot1:function(){
+                    this.slot1 = (this.slot1 < this.max-1)? ++this.slot1:0;
+                },
+                rotation_slot2:function(){
+                    this.slot2 = (this.slot2 < this.max-1)? ++this.slot2:0;
+                },
+                rotation_slot3:function(){
+                    this.slot3 = (this.slot3 < this.max-1)? ++this.slot3:0;
+                },
+                start_slot:function(){
+                    this.start_disabled = true
+                    this.stop1_disabled = false
+                    this.stop2_disabled = false
+                    this.stop3_disabled = false
+                    slot_timer1 = setInterval(this.rotation_slot1,100)
+                    slot_timer2 = setInterval(this.rotation_slot2,100)
+                    slot_timer3 = setInterval(this.rotation_slot3,100)
+                    
+                },
+                stop_slot:function(number){
+                    target = eval('slot_timer'+number)  
+                    clearInterval(target)
+                    stop1_disabled = false
+                }
+            }
+        })
+    </script>
+</body>
+</html>
