@@ -96,9 +96,9 @@
                 },
                 //回転ストップボタンのアクション
                 stop_slot:function(number){
+                    //動的にプロパティを指定
                     target = this['slot_timer'+number]
                     clearInterval(target)
-                    //clearInterval(this['slot_timer'+number])
                     this['stop_disabled'+number] = true
                 }
             }
