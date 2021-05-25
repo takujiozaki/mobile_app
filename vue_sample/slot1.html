@@ -18,23 +18,20 @@
                 <div class="border border-primary p-3 mb-2 display-4">
                     {{slot1}}
                 </div>
-                <button class="btn btn-primary" v-on:click="stop_slot(1)" v-bind:disabled="stop1_disabled">STOP</button>
+                <button class="btn btn-primary" v-on:click="stop_slot(1)" v-bind:disabled="stop_disabled1">STOP</button>
             </div>
             <div class="text-center">
                 <div class="border border-primary p-3 mb-2 display-4">
                     {{slot2}}
                 </div>
-                <button class="btn btn-primary" v-on:click="stop_slot(2)" v-bind:disabled="stop2_disabled">STOP</button>
+                <button class="btn btn-primary" v-on:click="stop_slot(2)" v-bind:disabled="stop_disabled2">STOP</button>
             </div>
             <div class="text-center">
                 <div class="border border-primary p-3 mb-2 display-4">
                     {{slot3}}
                 </div>
-                <button class="btn btn-primary" v-on:click="stop_slot(3)" v-bind:disabled="stop3_disabled">STOP</button>
+                <button class="btn btn-primary" v-on:click="stop_slot(3)" v-bind:disabled="stop_disabled3">STOP</button>
             </div>
-        </div>
-        <div class="border border-warning mt-3">
-            OUT
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
@@ -50,43 +47,59 @@
                 slot_timer2:null,
                 slot_timer3:null,
                 start_disabled:false,
-                stop1_disabled:true,
-                stop2_disabled:true,
-                stop3_disabled:true,
-
+                stop_disabled1:true,
+                stop_disabled2:true,
+                stop_disabled3:true,
             },
             created:function(){
                 this.init_slot()
             },
             methods:{
                 init_slot:function(){
-                    this.slot1 =  Math.floor(Math.random() * this.max)
-                    this.slot2 =  Math.floor(Math.random() * this.max)
-                    this.slot3 =  Math.floor(Math.random() * this.max)
+                    this.slot1 =  this.setRandom()
+                    this.slot2 =  this.setRandom()
+                    this.slot3 =  this.setRandom()
                 },
+                //ランダムをセットする
+                setRandom:function(){
+                    return Math.floor(Math.random() * this.max)
+                },
+                //スロット1を回転
                 rotation_slot1:function(){
-                    this.slot1 = (this.slot1 < this.max-1)? ++this.slot1:0;
+                    //基本パターン
+                    if(this.slot1 < this.max-1){
+                        this.slot1++
+                    }else{
+                        this.slot1 = 0
+                    }
                 },
+                //スロット2を回転
                 rotation_slot2:function(){
+                    //三項演算子
                     this.slot2 = (this.slot2 < this.max-1)? ++this.slot2:0;
                 },
+                //スロット3を回転
                 rotation_slot3:function(){
-                    this.slot3 = (this.slot3 < this.max-1)? ++this.slot3:0;
+                    //余り算を使う
+                    this.slot3 = ++this.slot3 % this.max
                 },
+                //回転スタートボタンのアクション
                 start_slot:function(){
                     this.start_disabled = true
-                    this.stop1_disabled = false
-                    this.stop2_disabled = false
-                    this.stop3_disabled = false
-                    slot_timer1 = setInterval(this.rotation_slot1,100)
-                    slot_timer2 = setInterval(this.rotation_slot2,100)
-                    slot_timer3 = setInterval(this.rotation_slot3,100)
+                    this.stop_disabled1 = false
+                    this.stop_disabled2 = false
+                    this.stop_disabled3 = false
+                    this.slot_timer1 = setInterval(this.rotation_slot1,100)
+                    this.slot_timer2 = setInterval(this.rotation_slot2,100)
+                    this.slot_timer3 = setInterval(this.rotation_slot3,100)
                     
                 },
+                //回転ストップボタンのアクション
                 stop_slot:function(number){
-                    target = eval('slot_timer'+number)  
+                    target = this['slot_timer'+number]
                     clearInterval(target)
-                    stop1_disabled = false
+                    //clearInterval(this['slot_timer'+number])
+                    this['stop_disabled'+number] = true
                 }
             }
         })
