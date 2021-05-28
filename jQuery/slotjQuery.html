@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>簡易スロットマシン</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1>簡易SLOT</h1>
+        <div class="text-center mb-3">
+            <button class="btn btn-lg btn-info" id="start">START</button>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="text-center">
+                <div class="border border-primary p-3 mb-2 display-4" id="slot0">
+                    
+                </div>
+                <button class="btn btn-primary stopRotation" name="Slot0">STOP</button>
+            </div>
+            <div class="text-center">
+                <div class="border border-primary p-3 mb-2 display-4" id="slot1">
+                    
+                </div>
+                <button class="btn btn-primary stopRotation" name="Slot1">STOP</button>
+            </div>
+            <div class="text-center">
+                <div class="border border-primary p-3 mb-2 display-4" id="slot2">
+                    
+                </div>
+                <button class="btn btn-primary stopRotation" name="Slot2">STOP</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            const slot = new Array(0,0,0);
+            let rotationSlot0 = null;
+            let rotationSlot1 = null;
+            let rotationSlot2 = null;
+            const max = 10;//スロット表示最大値0~9まで
+
+            //乱数を生成
+            function setRandom(){
+                return Math.floor(Math.random() * max);
+            }
+            //slotの表示
+            function showSlot(number){
+                $('#slot'+number).text(slot[number]);
+
+            }
+            //slotの初期化
+            function init(){
+                for(let i = 0; i < slot.length; i++){
+                    //乱数をセット
+                    slot[i] = setRandom();
+                    //表示
+                    showSlot(i)
+                }
+                $('.stopRotation').prop("disabled", true);
+            }
+
+            //slotの回転処理
+            function rotate_slot(number){
+                //カウンター増加
+                //三項演算子
+                slot[number] = (slot[number]<max-1)?++slot[number]:0;
+
+                /*
+                //余り算の例
+                slot[number] = ++slot[number] % max;
+                */
+
+                //表示
+                showSlot(number);
+            }
+
+            //STARTボタン
+            $('#start').on('click',function(){
+                //slotスタート
+                //setInterval 第一引数の関数に引数がある場合は無名関数化する
+                rotationSlot0 = setInterval(function(){rotate_slot(0)},100);
+                rotationSlot1 = setInterval(function(){rotate_slot(1)},100);
+                rotationSlot2 = setInterval(function(){rotate_slot(2)},100);
+                //スタートボタンを無効化
+                $(this).prop("disabled", true);
+                //ストップボタンを有効に
+                $('.stopRotation').prop("disabled", false);
+            });
+
+            //STOPボタン クラスでまとめて処理
+            $('.stopRotation').on('click',function(){
+                //クリックしたボタンのname属性を取得
+                const target = $(this).attr('name');
+                //eval関数で連結
+                clearInterval(eval('rotation'+target));
+                //押したボタンは無効に
+                $(this).prop("disabled", true);
+            })
+
+            //初期化実行
+            init();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Timer</title>
+  </head>
+  <body>
+    <div class="container">
+        <h1 class="text-center">CountDownTimer</h1>
+        <div class="row mb-3">
+            <div class="col-6 border border-primary rounded m-auto">
+                <p class="h1 text-center" id="remain">00</p>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-primary mr-1" id="ctlBtn">START</button>
+            <button class="btn btn-danger" id="resetBtn">RESET</button>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+      $(document).ready(function(){
+        //残時間を保存する変数
+        let remain = 0;
+        //timerを管理する変数
+        let timerID = null;
+        //RESETボタン
+        const resetBtn = $('#resetBtn');
+        //算時間表示
+        const remainId = $('#remain');
+
+        //スタート・ストップボタン
+        $('#ctlBtn').on('click',function(){
+          if($(this).html() == 'START'){
+            //タイマー開始
+            timerStart();
+            //表示をストップに
+            $(this).html('STOP');
+            //リセットボタンを無効に
+            resetBtn.attr('disabled',true);
+          }else{
+            //タイマー停止
+            timerStop();
+            //表示を開始に
+            $(this).html('START');
+            //リセットボタンを有効に
+            resetBtn.attr('disabled',false);
+          }
+        });
+
+        //timerリセット
+        resetBtn.on('click',function(){
+          init();
+        });
+        
+        //初期化関数
+        function init(){
+          reset();
+          showRemain();
+        }
+        
+        //残時間を60秒に設定する
+        function reset(){
+          remain = 60;
+        }
+        
+        //残時間を表示する
+        function showRemain(){
+          remainId.text(remain);
+        }
+
+        //残時間を減らす
+        function reduceTime(){
+          //if-elseによる制御
+          if(remain){
+            remain--;
+          }else{
+            timerStop();
+          }
+          
+          //三項演算子による制御
+          //(remain)?remain--:timerStop;
+          
+          //表示関数
+          showRemain();
+        }
+
+        //timerスタート
+        function timerStart(){
+          //タイマー処理
+          timerID = setInterval(reduceTime,1000);
+        }
+
+        //timerストップ
+        function timerStop(){
+          clearInterval(timerID);
+        }
+
+        //初期化処理
+        init();
+
+      });
+    </script>
+  </body>
+</html>
