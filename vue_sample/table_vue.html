@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Table</title>
+</head>
+<body>
+    <div class="container">
+        TABLES
+        <div class="form-inline mb-3">
+            <label for="when" class="mr-1">When</label>
+            <input type="date" class="form-control mr-1" name="when" id="when" v-model="newWhen">
+            <label for="content" class="mr-1">Content</label>
+            <input type="text" class="form-control mr-1" name="content" id="content" v-model="newContent">
+            <button class="btn btn-primary" v-on:click="addSchedule">追加</button>
+        </div>
+        <table class="table">
+            <tr>
+                <th>When</th>
+                <th>Contant</th>
+            </tr>
+            <tr v-for="schedule in schedules">
+                <td>{{schedule.when}}</td>
+                <td>{{schedule.content}}</td>
+            </tr>
+            
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:'.container',
+            data:{
+                schedules:[
+                    {when:'2021-05-28',content:'Vue.jsの最終日'},
+                    {when:'2021-05-31',content:'課題提出日'},
+                ],
+                newWhen:'',
+                newContent:'',
+            },
+            methods:{
+                addSchedule:function(){
+                    newSchedule = {when:this.newWhen,content:this.newContent}
+                    this.schedules.push(newSchedule)
+                }
+            },
+        })
+    </script>
+</body>
+</html>
