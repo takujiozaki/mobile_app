@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>microCMS DEMO</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1>{{title}}</h1>
+        <table class="table">
+            <tr>
+                <th>Title</th>
+                <th>Body</th>
+                <th>createdAt</th>
+            </tr>
+            <tr v-for="post in posts">
+                <td>{{post.title}}</td>
+                <td>{{post.body}}</td>
+                <td>{{post.createdAt}}</td>
+            </tr>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const app = new Vue({
+            el:'.container',
+            data:{
+                posts:[],
+                title:'MiniCMS'
+            },
+            created:function(){
+                this.load()
+            },
+            methods:{
+                load:function(){
+                    axios.get('https://ozktkj.microcms.io/api/v1/news/',{
+                        headers:{
+                            "X-API-KEY" : "855bab7c-5f0c-447f-9c0d-b9d66520b5ea",
+                        },
+                    })
+                    .then(function (response) {
+                        // 成功した時
+                        //console.log(response.data.contents);
+                        response.data.contents.forEach(function(post){
+                            newPost = {title:post.title,body:post.body,createdAt:post.createdAt}
+                            console.log(newPost)
+                            //console.log(app.posts)
+                            app.posts.push(newPost)
+                        })
+                        
+                    })
+                    .catch(function (error) {
+                        // 失敗したとき
+                        console.log(error);
+                    })
+                    .finally(function () {
+                        // どちらの時でも
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+</html>
