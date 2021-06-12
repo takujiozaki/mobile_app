@@ -27,7 +27,8 @@ java script・jQueryの復習
 ## 制作課題
 各自テーマを持って基本アプリ(/vue_todo/base.html)を装飾  
 * ファイルとして開かず、ローカルサーバー経由で動作させる事  
-必須:カテゴリー要素を表現すること  
+必須:カテゴリー要素を表現すること
+https://sozosha.studioham.net/s00/geo_hotpper.html
 
 ## 提出方法
 ファイルを圧縮してメールで提出。  
